@@ -1,0 +1,12 @@
+{
+  "name": "p2p-screen-mirror",
+  "version": "1.0.0",
+  "description": "Ung dung chieu man hinh P2P WebRTC",
+  "main": "index.html",
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "cordova-plugin-webrtc-screen-sharing": "git+https://github.com/AlexDisler/cordova-plugin-webrtc-screen-sharing.git"
+  }
+}
