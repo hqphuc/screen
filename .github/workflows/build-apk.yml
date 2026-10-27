@@ -3,15 +3,14 @@ name: Auto Build Android APK
 on:
   push:
     branches: [ "main", "master" ]
-  workflow_dispatch:
+  workflow_dispatch: # Cho phép bấm nút chạy thủ công bất cứ lúc nào
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10 # Tự động ngắt nếu quá 10 phút
 
     steps:
-      - name: 1. Tải mã nguồn
+      - name: 1. Tải mã nguồn từ kho chứa
         uses: actions/checkout@v4
 
       - name: 2. Cài đặt Node.js 20
@@ -19,38 +18,31 @@ jobs:
         with:
           node-version: 20
 
-      - name: 3. Cài đặt Java JDK 17
+      - name: 3. Cài đặt Java JDK 17 (Bắt buộc cho Gradle của Android)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: 4. Tạo cấu hình Capacitor tự động (Không gây treo)
+      - name: 4. Chuẩn bị thư mục web và cài đặt Capacitor
         run: |
           mkdir -p www
           cp index.html www/
-          cat << 'EOF' > capacitor.config.json
-          {
-            "appId": "com.p2p.mirror",
-            "appName": "ScreenMirror",
-            "webDir": "www",
-            "bundledWebRuntime": false
-          }
-          EOF
-          npm install --no-audit --no-fund
+          npm install
 
-      - name: 5. Tạo khung Android
+      - name: 5. Khởi tạo khung ứng dụng Android tự động
         run: |
+          npx cap init "ScreenMirror" "com.p2p.mirror" --web-dir www
           npx cap add android
           npx cap sync android
 
-      - name: 6. Bơm quyền quay màn hình vào AndroidManifest.xml
+      - name: 6. Tự động bơm quyền quay màn hình vào AndroidManifest.xml
         run: |
           MANIFEST="android/app/src/main/AndroidManifest.xml"
           PERMS='<uses-permission android:name="android.permission.RECORD_AUDIO" />\n    <uses-permission android:name="android.permission.CAMERA" />\n    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />\n    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />\n    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />'
           sed -i "s|<application|$PERMS\n    <application|g" "$MANIFEST"
 
-      - name: 7. Mở khóa quyền WebRTC trong MainActivity.java
+      - name: 7. Tự động mở khóa quyền WebRTC trong MainActivity.java
         run: |
           cat << 'EOF' > android/app/src/main/java/com/p2p/mirror/MainActivity.java
           package com.p2p.mirror;
@@ -83,9 +75,9 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug
 
-      - name: 9. Xuất file APK
+      - name: 9. Đóng gói file APK để tải về
         uses: actions/upload-artifact@v4
         with:
           name: ScreenMirror-APK
