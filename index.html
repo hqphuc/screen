@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chia Sẻ Màn Hình P2P - QR Connect</title>
+    <title>Chia Sẻ Camera - QR Connect</title>
     <!-- Tailwind CSS, PeerJS & QRCode.js -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
@@ -18,8 +18,8 @@
 
     <!-- Tiêu đề -->
     <header class="w-full max-w-4xl text-center my-3">
-        <h1 class="text-2xl md:text-3xl font-bold text-emerald-400">TRÌNH CHIẾU MÀN HÌNH NỘI BỘ (P2P)</h1>
-        <p class="text-slate-400 text-sm mt-1">Quét mã QR để kết nối nhanh - Không tốn băng thông Internet</p>
+        <h1 class="text-2xl md:text-3xl font-bold text-emerald-400">CAMERA THIẾT BỊ</h1>
+        <p class="text-slate-400 text-sm mt-1">Quét mã QR để kết nối nhanh</p>
     </header>
 
     <!-- Khu vực chọn vai trò -->
@@ -88,7 +88,6 @@
         <div class="mb-6">
             <label class="block text-slate-400 text-sm mb-2">Chế độ truyền tải:</label>
             <select id="captureMode" class="w-full px-3 py-3 bg-slate-900 border border-slate-600 rounded-xl text-white text-sm focus:outline-none">
-                <option value="screen">📱 Toàn bộ màn hình & Âm thanh</option>
                 <option value="camera">📷 Camera sau (Soi bài tập / Vật thể)</option>
             </select>
         </div>
