@@ -27,10 +27,10 @@
         <h2 class="text-lg font-semibold mb-4 text-center text-slate-200">Chọn thiết bị đang sử dụng:</h2>
         <div class="flex flex-col gap-4">
             <button onclick="selectRole('receiver')" class="w-full py-4 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition shadow-lg">
-                <span>💻</span> Máy Tính (Nhận Hình Ảnh)
+                <span>💻</span> Máy phát
             </button>
             <button onclick="selectRole('sender')" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition shadow-lg">
-                <span>📱</span> Điện Thoại (Phát Màn Hình)
+                <span>📱</span> Máy nhận
             </button>
         </div>
     </div>
@@ -88,6 +88,7 @@
         <div class="mb-6">
             <label class="block text-slate-400 text-sm mb-2">Chế độ truyền tải:</label>
             <select id="captureMode" class="w-full px-3 py-3 bg-slate-900 border border-slate-600 rounded-xl text-white text-sm focus:outline-none">
+                <option value="screen">📱 Toàn bộ màn hình & Âm thanh (chức năng chỉ hoạt động khi máy phát là PC)</option>
                 <option value="camera">📷 Camera sau (Soi bài tập / Vật thể)</option>
             </select>
         </div>
